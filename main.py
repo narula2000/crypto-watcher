@@ -25,6 +25,16 @@ def fetchCoins():
 
     return coins
 
+def filterCoins(coins):
+    unwanted = set(['USDT', 'USDC', 'WBTC', 'UNI', 'BUSD'])
+    lst = []
+    for coin in coins:
+        if coin[0] not in unwanted:
+            lst.append(coin)
+    return lst
+
 if __name__ == '__main__':
-    coins = fetchCoins()
+    temp_coins = fetchCoins()
+    coins = filterCoins(temp_coins)
+
     print(coins)
