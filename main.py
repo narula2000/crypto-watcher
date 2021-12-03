@@ -6,6 +6,7 @@ import requests
 from bs4 import BeautifulSoup
 from dateutil.relativedelta import relativedelta
 
+
 def fetchCoins():
     """Web Scrap CoinMarketCap for top coins by marketcap.
 
@@ -37,6 +38,7 @@ def fetchCoins():
 
     return coins
 
+
 def filterCoins(coins):
     """Filtering Coins to useful ones.
 
@@ -54,6 +56,7 @@ def filterCoins(coins):
         if coin[0] not in unwanted:
             lst.append(coin)
     return lst
+
 
 def fetchPrice(symbol='BTC-USD', gap=6, day=False):
     """Fetch Price from Yahoo Database.
@@ -74,6 +77,7 @@ def fetchPrice(symbol='BTC-USD', gap=6, day=False):
         start = end - relativedelta(days=gap)
     return web.DataReader(symbol, 'yahoo', start, end)
 
+
 def getChange(current, previous):
     """Get the Percentage Change.
 
@@ -93,6 +97,7 @@ def getChange(current, previous):
     except ZeroDivisionError:
         return float('inf')
 
+
 def printHeader(name, char='=', length=38):
     """Print Header with surround chars
 
@@ -107,6 +112,7 @@ def printHeader(name, char='=', length=38):
     """
 
     print(name.center(length, char))
+
 
 if __name__ == '__main__':
     temp_coins = fetchCoins()
