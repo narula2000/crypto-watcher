@@ -98,7 +98,7 @@ def getChange(current, previous):
         return float('inf')
 
 
-def printHeader(name, char='=', length=38):
+def printHeader(name, char='=', length=70):
     """Print Header with surround chars
 
     Parameters:
@@ -127,7 +127,7 @@ if __name__ == '__main__':
     for coin in coins:
         symbol, name = coin
         symbol_usd = f'{symbol}-USD'
-        currents, means, changes = [], [], []
+        currents, means, moving_means, changes, moving_changes = [], [], [], [], []
         printHeader(name)
         for gap in time_gaps:
             try:
@@ -140,21 +140,29 @@ if __name__ == '__main__':
 
             current = close[-1]
             mean = close.mean()
+            moving_mean = close.rolling(window =20).mean().mean()
             change = getChange(current, mean)
+            moving_change = getChange(current, moving_mean)
 
             # Display coins which have USD value lower than 0.001
             if round(current, 3) < 0.001:
                 currents.append(current)
                 means.append(mean)
+                moving_means.append(moving_mean)
                 changes.append(change)
+                moving_changes.append(moving_change)
             else:
                 currents.append(round(current, 3))
                 means.append(round(mean, 3))
+                moving_means.append(round(moving_mean, 3))
                 changes.append(round(change, 3))
+                moving_changes.append(round(moving_change, 3))
 
         df = pd.DataFrame(data={
             'Current': currents,
             'Mean': means,
-            '% Change': changes
+            'Moving Mean': moving_means,
+            'PC Mean': changes,
+            'PC Moving Mean': moving_changes
         }, index=months)
         print(df)
