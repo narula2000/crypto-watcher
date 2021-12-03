@@ -7,6 +7,13 @@ from bs4 import BeautifulSoup
 from dateutil.relativedelta import relativedelta
 
 def fetchCoins():
+    """Web Scrap CoinMarketCap for top coins by marketcap.
+
+    Returns:
+    lst[(str, str)]: List of top coins.
+
+    """
+
     url = 'https://coinmarketcap.com/'
     req = requests.get(url)
     soup = BeautifulSoup(req.content, 'html.parser')
@@ -31,6 +38,16 @@ def fetchCoins():
     return coins
 
 def filterCoins(coins):
+    """Filtering Coins to useful ones.
+
+    Parameters:
+    coins (lst[(str, str)]): Cryptocurreny Index
+
+    Returns:
+    lst[(str, str)]: List of coins we want to fetch for.
+
+    """
+
     unwanted = set(['USDT', 'USDC', 'WBTC', 'UNI', 'BUSD'])
     lst = []
     for coin in coins:
@@ -39,6 +56,18 @@ def filterCoins(coins):
     return lst
 
 def fetchPrice(symbol='BTC-USD', gap=6, day=False):
+    """Fetch Price from Yahoo Database.
+
+    Parameters:
+    symbol (str): Cryptocurreny Index
+    gap (int): Amount of time gap for the data range
+    day (boolean): Falg to change gap from months to days
+
+    Returns:
+    pd.DataFrame: Yahoo Finanace dataframe of the crypto index.
+
+    """
+
     end = dt.datetime.now()
     start = end - relativedelta(months=gap)
     if day:
@@ -46,6 +75,17 @@ def fetchPrice(symbol='BTC-USD', gap=6, day=False):
     return web.DataReader(symbol, 'yahoo', start, end)
 
 def getChange(current, previous):
+    """Get the Percentage Change.
+
+    Parameters:
+    current (int): Current value
+    previous (int): Previous value
+
+    Returns:
+    int: Percentage Change
+
+    """
+
     if current == previous:
         return 0
     try:
@@ -53,8 +93,20 @@ def getChange(current, previous):
     except ZeroDivisionError:
         return float('inf')
 
-def printHeader(name, char='='):
-    print(name.center(38, char))
+def printHeader(name, char='=', length=38):
+    """Print Header with surround chars
+
+    Parameters:
+    name (str): Heading we want to print
+    char (str): Character we want to surround the header
+    length (int): Length of the Header
+
+    Returns:
+    None: Print the header with the given string.
+
+    """
+
+    print(name.center(length, char))
 
 if __name__ == '__main__':
     temp_coins = fetchCoins()
@@ -84,6 +136,7 @@ if __name__ == '__main__':
             mean = close.mean()
             change = getChange(current, mean)
 
+            # Display coins which have USD value lower than 0.001
             if round(current, 3) < 0.001:
                 currents.append(current)
                 means.append(mean)
