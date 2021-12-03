@@ -12,10 +12,16 @@ This is due to the need of Pipenv.
 
 ## Libary Used
 
+Pyhton
+
 - pandas
 - pandas-datareader
 - beautifulsoup4
 - python-dateutil
+
+Operating System
+
+- xclip
 
 ## Quick Start
 
