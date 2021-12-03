@@ -53,11 +53,16 @@ def getChange(current, previous):
     except ZeroDivisionError:
         return float('inf')
 
+def printHeader(name, char='='):
+    print(name.center(38, char))
+
 if __name__ == '__main__':
     temp_coins = fetchCoins()
     coins = filterCoins(temp_coins)
 
-    print(coins)
+    toady_string = 'Today: ' + str(dt.datetime.now().date())
+    printHeader(toady_string, '-')
+    printHeader(f'Top {len(coins)} Coins by Marketcap', '+')
 
     time_gaps = [1, 3, 6, 12]
     months = ['1m', '3m', '6m', '12m']
@@ -65,6 +70,7 @@ if __name__ == '__main__':
         symbol, name = coin
         symbol_usd = f'{symbol}-USD'
         currents, means, changes = [], [], []
+        printHeader(name)
         for gap in time_gaps:
             try:
                 pd.DataFrame(fetchPrice(symbol=symbol_usd, gap=gap))
