@@ -50,7 +50,7 @@ def filterCoins(coins):
 
     """
 
-    unwanted = set(['USDT', 'USDC', 'WBTC', 'UNI', 'BUSD', 'UST'])
+    unwanted = set(['USDT', 'USDC', 'WBTC', 'UNI', 'BUSD', 'UST', 'DAI'])
     lst = []
     for coin in coins:
         if coin[0] not in unwanted:
