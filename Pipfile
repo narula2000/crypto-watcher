@@ -13,6 +13,8 @@ python-dateutil = "*"
 autopep8 = "*"
 flake8 = "*"
 isort = "*"
+neovim = "*"
+pynvim = "*"
 
 [requires]
 python_version = "3.10"

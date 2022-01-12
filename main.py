@@ -50,7 +50,8 @@ def filterCoins(coins):
 
     """
 
-    unwanted = set(['USDT', 'USDC', 'WBTC', 'UNI', 'BUSD', 'UST', 'DAI'])
+    unwanted = set(['USDT', 'USDC', 'WBTC', 'UNI',
+                    'BUSD', 'UST', 'DAI', 'CRO'])
     lst = []
     for coin in coins:
         if coin[0] not in unwanted:
@@ -140,7 +141,7 @@ if __name__ == '__main__':
 
             current = close[-1]
             mean = close.mean()
-            moving_mean = close.rolling(window =20).mean().mean()
+            moving_mean = close.rolling(window=20).mean().mean()
             change = getChange(current, mean)
             moving_change = getChange(current, moving_mean)
 
