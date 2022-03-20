@@ -22,6 +22,7 @@ Python
 Operating System
 
 - xclip
+- bash
 
 ## Quick Start
 
