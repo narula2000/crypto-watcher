@@ -49,14 +49,10 @@ def filterCoins(coins):
     lst[(str, str)]: List of coins we want to fetch for.
 
     """
+    unwanted = set(['USDT', 'USDC', 'BUSD', 'UST', 'WBTC','DAI', 'CRO'])
 
-    unwanted = set(['USDT', 'USDC', 'WBTC', 'UNI',
-                    'BUSD', 'UST', 'DAI', 'CRO'])
-    lst = []
-    for coin in coins:
-        if coin[0] not in unwanted:
-            lst.append(coin)
-    return lst
+    filtered = filter(lambda coin: coin[0] not in unwanted, coins)
+    return list(filtered)
 
 
 def fetchPrice(symbol='BTC-USD', gap=6, day=False):
@@ -128,6 +124,8 @@ if __name__ == '__main__':
     for coin in coins:
         symbol, name = coin
         symbol_usd = f'{symbol}-USD'
+        if symbol == 'DOGE':
+            symbol_usd = f'{symbol}COIN-USD'
         currents, means, moving_means, changes, moving_changes = [], [], [], [], []
         printHeader(name)
         for gap in time_gaps:
