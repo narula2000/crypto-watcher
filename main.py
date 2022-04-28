@@ -10,8 +10,7 @@ from dateutil.relativedelta import relativedelta
 def fetchCoins():
     """Web Scrap CoinMarketCap for top coins by marketcap.
 
-    Returns:
-    lst[(str, str)]: List of top coins.
+    Returns: lst[(str, str)]: List of top coins.
 
     """
 
