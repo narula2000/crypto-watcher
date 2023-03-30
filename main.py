@@ -130,8 +130,9 @@ if __name__ == '__main__':
         for gap in time_gaps:
             try:
                 pd.DataFrame(fetchPrice(symbol=symbol_usd, gap=gap))
-            except:
-                symbol_usd = f'{symbol}1-USD'
+            except Exception as err:
+                print(err)
+                exit(1)
 
             data = pd.DataFrame(fetchPrice(symbol=symbol_usd, gap=gap))
             close = data['Close']
